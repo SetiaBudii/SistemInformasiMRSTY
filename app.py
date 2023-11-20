@@ -38,14 +38,18 @@ def performance():
 
 @app.route("/rec-content")
 @nocache
-def recomendationcategory():
+def recommendationcontent():
     return render_template("recommendation_category.html")
 
 @app.route("/rec-channel")
 @nocache
-def recomendationcontent():
+def recommendationchannel():
     return render_template("recommendation_channel.html")
 
+@app.route("/trending")
+@nocache
+def trending():
+    return render_template("trending.html")
     
 # #route quiz upload
 # @app.route("/quiz_upload", methods=["POST"])
