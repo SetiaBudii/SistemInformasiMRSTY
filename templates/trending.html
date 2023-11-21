@@ -440,7 +440,7 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-            <div class="col-sm-6 col-xl-3" style="margin-bottom: 15px;">
+            <!-- <div class="col-sm-6 col-xl-3" style="margin-bottom: 15px;">
               <div class="card overflow-hidden rounded-2">
                 <div class="position-relative">
                   <img src="https://i.ytimg.com/vi/AMWfpesFIRs/mqdefault.jpg" class="card-img-top rounded-0">
@@ -607,31 +607,33 @@
                   </div>
                 </div>         
               </div>
-            </div>
+            </div> -->
+            {% for i in range(number_of_videos) %}
             <div class="col-sm-6 col-xl-3" style="margin-bottom: 15px;">
               <div class="card overflow-hidden rounded-2">
                 <div class="position-relative">
-                  <img src="https://i.ytimg.com/vi/AMWfpesFIRs/mqdefault.jpg" class="card-img-top rounded-0">
+                  <img src=" {{data[0]['Videos'][i]['thumbnail']}}" class="card-img-top rounded-0">
                 </div>
                 <div class="card-body pt-3 p-4">
                   <div class="d-flex align-items-center">
                     <h6 class="blue-text small mb-0">
-                      Okt 25
+                      {{data[0]['Videos'][i]['Day']}} {{data[0]['Videos'][i]['Month']}}
                     </h6>
                     <h6 class="fw-semibold fs-4 ml-2 mb-0">
-                      <span class="text-sm">EPISODE 68 | Ambo Nai Nak Jalanan</span>
+                      <span class="text-sm">{{data[0]['Videos'][i]['Title'][:50]}}..</span>
                     </h6>
                   </div>
                   <div class="d-flex align-items-center">
-                    <span class="number-text">#1</span>
+                    <span class="number-text">#{{i+1}}</span>
                   </div>
                   <div class="d-flex flex-column mt-2">
-                    <p class="mb-0 small">Timur Kota Official</p> 
-                    <p class="mb-0 small">691K views</p> 
+                    <p class="mb-0 small">{{data[0]['Videos'][i]['ChannelTitle']}}</p> 
+                    <p class="mb-0 small">{{data[0]['Videos'][i]['ViewCount']}} views</p> 
                   </div>
                 </div>         
               </div>
             </div>  
+            {% endfor %}
           </div>
         </div>
       </div>

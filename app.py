@@ -7,6 +7,8 @@ from datetime import datetime
 from functools import wraps, update_wrapper
 from shutil import copyfile
 import random
+import data_processing
+from pymongo import MongoClient
 
 app = Flask(__name__)
 
@@ -49,7 +51,10 @@ def recommendationchannel():
 @app.route("/trending")
 @nocache
 def trending():
-    return render_template("trending.html")
+    data = data_processing.get_data_trending()
+    number_of_videos = len(data[0]["Videos"])
+    print(len(data[0]["Videos"]))
+    return render_template("trending.html", data=data, number_of_videos=number_of_videos)
     
 # #route quiz upload
 # @app.route("/quiz_upload", methods=["POST"])
