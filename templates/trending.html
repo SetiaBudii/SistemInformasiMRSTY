@@ -12,6 +12,14 @@
     .spacer {
       flex-grow: 1;
     }
+
+    .card-body span {
+      margin: 0; /* Menghilangkan margin pada paragraf */
+      display: -webkit-box;
+      -webkit-line-clamp: 2; /* Jumlah baris yang akan ditampilkan sebelum muncul ellipsis */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
   </style>
   
 <head>
@@ -311,12 +319,6 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="../index.html">
-              <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
-            </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="{{ url_for('performance') }}">
               <i class="bi bi-speedometer menu-icon"></i>
               <span class="menu-title">Performance</span>
@@ -334,113 +336,13 @@
               <span class="menu-title">Recommen category</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('recommendationchannel') }}">
-              <i class="bi bi-hand-thumbs-up menu-icon"></i>
-              <span class="menu-title">Recommen channel</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="icon-layout menu-icon"></i>
-              <span class="menu-title">UI Elements</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="ui-features/buttons.html">Buttons</a></li>
-                <li class="nav-item"> <a class="nav-link" href="ui-features/dropdowns.html">Dropdowns</a></li>
-                <li class="nav-item"> <a class="nav-link" href="ui-features/typography.html">Typography</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-              <i class="icon-columns menu-icon"></i>
-              <span class="menu-title">Form elements</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="form-elements">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="forms/basic_elements.html">Basic Elements</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-              <i class="icon-bar-graph menu-icon"></i>
-              <span class="menu-title">Charts</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="charts">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="charts/chartjs.html">ChartJs</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-              <i class="icon-grid-2 menu-icon"></i>
-              <span class="menu-title">Tables</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="tables">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="tables/basic-table.html">Basic table</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-              <i class="icon-contract menu-icon"></i>
-              <span class="menu-title">Icons</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="icons">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="icons/mdi.html">Mdi icons</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
-              <span class="menu-title">User Pages</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="samples/login.html"> Login </a></li>
-                <li class="nav-item"> <a class="nav-link" href="samples/register.html"> Register </a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
-              <i class="icon-ban menu-icon"></i>
-              <span class="menu-title">Error pages</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="error">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="samples/error-404.html"> 404 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="samples/error-500.html"> 500 </a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="documentation/documentation.html">
-              <i class="icon-paper menu-icon"></i>
-              <span class="menu-title">Documentation</span>
-            </a>
-          </li>
         </ul>
       </nav>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-            <div class="col-sm-6 col-xl-3" style="margin-bottom: 15px;">
+            <!-- <div class="col-sm-6 col-xl-3" style="margin-bottom: 15px;">
               <div class="card overflow-hidden rounded-2">
                 <div class="position-relative">
                   <img src="https://i.ytimg.com/vi/AMWfpesFIRs/mqdefault.jpg" class="card-img-top rounded-0">
@@ -607,31 +509,33 @@
                   </div>
                 </div>         
               </div>
-            </div>
+            </div> -->
+            {% for i in range(number_of_videos) %}
             <div class="col-sm-6 col-xl-3" style="margin-bottom: 15px;">
               <div class="card overflow-hidden rounded-2">
                 <div class="position-relative">
-                  <img src="https://i.ytimg.com/vi/AMWfpesFIRs/mqdefault.jpg" class="card-img-top rounded-0">
+                  <img src=" {{data[0]['Videos'][i]['thumbnail']}}" class="card-img-top rounded-0">
                 </div>
                 <div class="card-body pt-3 p-4">
                   <div class="d-flex align-items-center">
                     <h6 class="blue-text small mb-0">
-                      Okt 25
+                      {{data[0]['Videos'][i]['Day']}} {{data[0]['Videos'][i]['Month']}}
                     </h6>
                     <h6 class="fw-semibold fs-4 ml-2 mb-0">
-                      <span class="text-sm">EPISODE 68 | Ambo Nai Nak Jalanan</span>
+                      <span class="text-sm">{{data[0]['Videos'][i]['Title'][:50]}}..</span>
                     </h6>
                   </div>
                   <div class="d-flex align-items-center">
-                    <span class="number-text">#1</span>
+                    <span class="number-text">#{{i+1}}</span>
                   </div>
                   <div class="d-flex flex-column mt-2">
-                    <p class="mb-0 small">Timur Kota Official</p> 
-                    <p class="mb-0 small">691K views</p> 
+                    <p class="mb-0 small">{{data[0]['Videos'][i]['ChannelTitle']}}</p> 
+                    <p class="mb-0 small">{{data[0]['Videos'][i]['ViewCount']}} views</p> 
                   </div>
                 </div>         
               </div>
             </div>  
+            {% endfor %}
           </div>
         </div>
       </div>
