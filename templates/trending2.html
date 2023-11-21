@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
+  <style>
+    .blue-text {
+      color: blue;
+    }
+  
+    .number-text {
+      font-weight: bold;
+    }
+  
+    .spacer {
+      flex-grow: 1;
+    }
+  </style>
+  
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -21,17 +34,15 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="../static/css/vertical-layout-light/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="../static/images/favicon.png" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  
+  <link rel="shortcut icon" href="../static/ve/favicon.png" />
 </head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="../static/images/logo.svg" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../static/images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="../static/ve/logo.svg" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../static/ve/logo-mini.svg" alt="logo"/></a>
       </div>
     </nav>
     <!-- partial -->
@@ -150,7 +161,7 @@
             </div>
             <ul class="chat-list">
               <li class="list active">
-                <div class="profile"><img src="../static/images/faces/face1.jpg" alt="image"><span class="online"></span></div>
+                <div class="profile"><img src="../static/ve/faces/face1.jpg" alt="image"><span class="online"></span></div>
                 <div class="info">
                   <p>Thomas Douglas</p>
                   <p>Available</p>
@@ -158,7 +169,7 @@
                 <small class="text-muted my-auto">19 min</small>
               </li>
               <li class="list">
-                <div class="profile"><img src="../static/images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
+                <div class="profile"><img src="../static/ve/faces/face2.jpg" alt="image"><span class="offline"></span></div>
                 <div class="info">
                   <div class="wrapper d-flex">
                     <p>Catherine</p>
@@ -169,7 +180,7 @@
                 <small class="text-muted my-auto">23 min</small>
               </li>
               <li class="list">
-                <div class="profile"><img src="../static/images/faces/face3.jpg" alt="image"><span class="online"></span></div>
+                <div class="profile"><img src="../static/ve/faces/face3.jpg" alt="image"><span class="online"></span></div>
                 <div class="info">
                   <p>Daniel Russell</p>
                   <p>Available</p>
@@ -177,7 +188,7 @@
                 <small class="text-muted my-auto">14 min</small>
               </li>
               <li class="list">
-                <div class="profile"><img src="../static/images/faces/face4.jpg" alt="image"><span class="offline"></span></div>
+                <div class="profile"><img src="../static/ve/faces/face4.jpg" alt="image"><span class="offline"></span></div>
                 <div class="info">
                   <p>James Richardson</p>
                   <p>Away</p>
@@ -185,7 +196,7 @@
                 <small class="text-muted my-auto">2 min</small>
               </li>
               <li class="list">
-                <div class="profile"><img src="../static/images/faces/face5.jpg" alt="image"><span class="online"></span></div>
+                <div class="profile"><img src="../static/ve/faces/face5.jpg" alt="image"><span class="online"></span></div>
                 <div class="info">
                   <p>Madeline Kennedy</p>
                   <p>Available</p>
@@ -193,7 +204,7 @@
                 <small class="text-muted my-auto">5 min</small>
               </li>
               <li class="list">
-                <div class="profile"><img src="../static/images/faces/face6.jpg" alt="image"><span class="online"></span></div>
+                <div class="profile"><img src="../static/ve/faces/face6.jpg" alt="image"><span class="online"></span></div>
                 <div class="info">
                   <p>Sarah Graves</p>
                   <p>Available</p>
@@ -210,21 +221,15 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('performance') }}">
-              <i class="bi bi-speedometer menu-icon"></i>
-              <span class="menu-title">Performance</span>
-            </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="{{ url_for('trending') }}">
               <i class="bi bi-graph-up menu-icon"></i>
               <span class="menu-title">Trending</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('recommendationcontent') }}">
+            <a class="nav-link" href="{{ url_for('recommendationchannel') }}">
               <i class="bi bi-hand-thumbs-up menu-icon"></i>
-              <span class="menu-title">Recommen category</span>
+              <span class="menu-title">Recommen channel</span>
             </a>
           </li>
         </ul>
@@ -232,58 +237,201 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <h2 class="font-weight-bold mb-5" style="color: #242565;">Performance Channel</h2>
-      
           <div class="row">
-            <div class="col-md-7 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <p class="card-title">Views</p>
-                  <canvas id="order-chart"></canvas>
+            <!-- <div class="col-sm-6 col-xl-3" style="margin-bottom: 15px;">
+              <div class="card overflow-hidden rounded-2">
+                <div class="position-relative">
+                  <img src="https://i.ytimg.com/vi/AMWfpesFIRs/mqdefault.jpg" class="card-img-top rounded-0">
                 </div>
+                <div class="card-body pt-3 p-4">
+                  <div class="d-flex align-items-center">
+                    <h6 class="blue-text small mb-0">
+                      Okt 25
+                    </h6>
+                    <h6 class="fw-semibold fs-4 ml-2 mb-0">
+                      <span class="text-sm">EPISODE 68 | Ambo Nai Nak Jalanan</span>
+                    </h6>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <span class="number-text">#1</span>
+                  </div>
+                  <div class="d-flex flex-column mt-2">
+                    <p class="mb-0 small">Timur Kota Official</p> 
+                    <p class="mb-0 small">691K views</p> 
+                  </div>
+                </div>         
               </div>
             </div>
-            <div class="col-md-5 grid-margin transparent">
-              <div class="row">
-                <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-tale">
-                    <div class="card-body">
-                      <h4 class="mb-4">Subscriber </h4>
-                      <p class="fs-30 mb-2">4006</p>
-                    </div>
-                  </div>
+            <div class="col-sm-6 col-xl-3" style="margin-bottom: 15px;">
+              <div class="card overflow-hidden rounded-2">
+                <div class="position-relative">
+                  <img src="https://i.ytimg.com/vi/AMWfpesFIRs/mqdefault.jpg" class="card-img-top rounded-0">
                 </div>
-                <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-dark-blue">
-                    <div class="card-body">
-                      <h4 class="mb-4">Likes </h4>
-                      <p class="fs-30 mb-2">61344</p>
-                      <p>22.00% (30 days)</p>
-                    </div>
+                <div class="card-body pt-3 p-4">
+                  <div class="d-flex align-items-center">
+                    <h6 class="blue-text small mb-0">
+                      Okt 25
+                    </h6>
+                    <h6 class="fw-semibold fs-4 ml-2 mb-0">
+                      <span class="text-sm">EPISODE 68 | Ambo Nai Nak Jalanan</span>
+                    </h6>
                   </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
-                  <div class="card card-light-blue">
-                    <div class="card-body">
-                      <h4 class="mb-4">Views </h4>
-                      <p class="fs-30 mb-2">34040</p>
-                      <p>2.00% (30 days)</p>
-                    </div>
+                  <div class="d-flex align-items-center">
+                    <span class="number-text">#1</span>
                   </div>
-                </div>
-                <div class="col-md-6 stretch-card transparent">
-                  <div class="card card-light-danger">
-                    <div class="card-body">
-                      <h4 class="mb-4">Video </h4>
-                      <p class="fs-30 mb-2">47033</p>
-                      <p>0.22% (30 days)</p>
-                    </div>
+                  <div class="d-flex flex-column mt-2">
+                    <p class="mb-0 small">Timur Kota Official</p> 
+                    <p class="mb-0 small">691K views</p> 
                   </div>
-                </div>
+                </div>         
               </div>
             </div>
+            <div class="col-sm-6 col-xl-3" style="margin-bottom: 15px;">
+              <div class="card overflow-hidden rounded-2">
+                <div class="position-relative">
+                  <img src="https://i.ytimg.com/vi/AMWfpesFIRs/mqdefault.jpg" class="card-img-top rounded-0">
+                </div>
+                <div class="card-body pt-3 p-4">
+                  <div class="d-flex align-items-center">
+                    <h6 class="blue-text small mb-0">
+                      Okt 25
+                    </h6>
+                    <h6 class="fw-semibold fs-4 ml-2 mb-0">
+                      <span class="text-sm">EPISODE 68 | Ambo Nai Nak Jalanan</span>
+                    </h6>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <span class="number-text">#1</span>
+                  </div>
+                  <div class="d-flex flex-column mt-2">
+                    <p class="mb-0 small">Timur Kota Official</p> 
+                    <p class="mb-0 small">691K views</p> 
+                  </div>
+                </div>         
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3" style="margin-bottom: 15px;">
+              <div class="card overflow-hidden rounded-2">
+                <div class="position-relative">
+                  <img src="https://i.ytimg.com/vi/AMWfpesFIRs/mqdefault.jpg" class="card-img-top rounded-0">
+                </div>
+                <div class="card-body pt-3 p-4">
+                  <div class="d-flex align-items-center">
+                    <h6 class="blue-text small mb-0">
+                      Okt 25
+                    </h6>
+                    <h6 class="fw-semibold fs-4 ml-2 mb-0">
+                      <span class="text-sm">EPISODE 68 | Ambo Nai Nak Jalanan</span>
+                    </h6>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <span class="number-text">#1</span>
+                  </div>
+                  <div class="d-flex flex-column mt-2">
+                    <p class="mb-0 small">Timur Kota Official</p> 
+                    <p class="mb-0 small">691K views</p> 
+                  </div>
+                </div>         
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3" style="margin-bottom: 15px;">
+              <div class="card overflow-hidden rounded-2">
+                <div class="position-relative">
+                  <img src="https://i.ytimg.com/vi/AMWfpesFIRs/mqdefault.jpg" class="card-img-top rounded-0">
+                </div>
+                <div class="card-body pt-3 p-4">
+                  <div class="d-flex align-items-center">
+                    <h6 class="blue-text small mb-0">
+                      Okt 25
+                    </h6>
+                    <h6 class="fw-semibold fs-4 ml-2 mb-0">
+                      <span class="text-sm">EPISODE 68 | Ambo Nai Nak Jalanan</span>
+                    </h6>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <span class="number-text">#1</span>
+                  </div>
+                  <div class="d-flex flex-column mt-2">
+                    <p class="mb-0 small">Timur Kota Official</p> 
+                    <p class="mb-0 small">691K views</p> 
+                  </div>
+                </div>         
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3" style="margin-bottom: 15px;">
+              <div class="card overflow-hidden rounded-2">
+                <div class="position-relative">
+                  <img src="https://i.ytimg.com/vi/AMWfpesFIRs/mqdefault.jpg" class="card-img-top rounded-0">
+                </div>
+                <div class="card-body pt-3 p-4">
+                  <div class="d-flex align-items-center">
+                    <h6 class="blue-text small mb-0">
+                      Okt 25
+                    </h6>
+                    <h6 class="fw-semibold fs-4 ml-2 mb-0">
+                      <span class="text-sm">EPISODE 68 | Ambo Nai Nak Jalanan</span>
+                    </h6>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <span class="number-text">#1</span>
+                  </div>
+                  <div class="d-flex flex-column mt-2">
+                    <p class="mb-0 small">Timur Kota Official</p> 
+                    <p class="mb-0 small">691K views</p> 
+                  </div>
+                </div>         
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3" style="margin-bottom: 15px;">
+              <div class="card overflow-hidden rounded-2">
+                <div class="position-relative">
+                  <img src="https://i.ytimg.com/vi/AMWfpesFIRs/mqdefault.jpg" class="card-img-top rounded-0">
+                </div>
+                <div class="card-body pt-3 p-4">
+                  <div class="d-flex align-items-center">
+                    <h6 class="blue-text small mb-0">
+                      Okt 25
+                    </h6>
+                    <h6 class="fw-semibold fs-4 ml-2 mb-0">
+                      <span class="text-sm">EPISODE 68 | Ambo Nai Nak Jalanan</span>
+                    </h6>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <span class="number-text">#1</span>
+                  </div>
+                  <div class="d-flex flex-column mt-2">
+                    <p class="mb-0 small">Timur Kota Official</p> 
+                    <p class="mb-0 small">691K views</p> 
+                  </div>
+                </div>         
+              </div>
+            </div> -->
+            {% for i in range(number_of_videos) %}
+            <div class="col-sm-6 col-xl-3" style="margin-bottom: 15px;">
+              <div class="card overflow-hidden rounded-2">
+                <div class="position-relative">
+                  <img src=" {{data[0]['Videos'][i]['thumbnail']}}" class="card-img-top rounded-0">
+                </div>
+                <div class="card-body pt-3 p-4">
+                  <div class="d-flex align-items-center">
+                    <h6 class="blue-text small mb-0">
+                      {{data[0]['Videos'][i]['Day']}} {{data[0]['Videos'][i]['Month']}}
+                    </h6>
+                    <h6 class="fw-semibold fs-4 ml-2 mb-0">
+                      <span class="text-sm">{{data[0]['Videos'][i]['Title'][:50]}}..</span>
+                    </h6>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <span class="number-text">#{{i+1}}</span>
+                  </div>
+                  <div class="d-flex flex-column mt-2">
+                    <p class="mb-0 small">{{data[0]['Videos'][i]['ChannelTitle']}}</p> 
+                    <p class="mb-0 small">{{data[0]['Videos'][i]['ViewCount']}} views</p> 
+                  </div>
+                </div>         
+              </div>
+            </div>  
+            {% endfor %}
           </div>
         </div>
       </div>
