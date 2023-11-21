@@ -2,6 +2,16 @@ body{
     background: cadetblue;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
   }
+
+  .img-category{
+    height: 100px; 
+    position: relative;
+    opacity: 0.5;
+  }
+
+  .img-category:hover {
+    opacity: 1.0;
+  }
   
   .form-upload{     
     position: relative;
@@ -137,9 +147,9 @@ body{
   background: #fff !important;
   color: #309df0;
 }
-
+/* 
 .solution_card .so_top_icon {
-}
+} */
 
 .solution_card .solu_title h3 {
   color: #212121;
@@ -173,8 +183,8 @@ body{
   margin-bottom: 1rem;
   font-size: 2.5rem;
 }
-.our_solution_content p {
-}
+/* .our_solution_content p {
+} */
 
 .hover_color_bubble {
   position: absolute;
