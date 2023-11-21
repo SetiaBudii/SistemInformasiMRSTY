@@ -12,6 +12,14 @@
     .spacer {
       flex-grow: 1;
     }
+
+    .card-body span {
+      margin: 0; /* Menghilangkan margin pada paragraf */
+      display: -webkit-box;
+      -webkit-line-clamp: 2; /* Jumlah baris yang akan ditampilkan sebelum muncul ellipsis */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
   </style>
   
 <head>
