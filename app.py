@@ -55,6 +55,14 @@ def trending():
     number_of_videos = len(data[0]["Videos"])
     print(len(data[0]["Videos"]))
     return render_template("trending.html", data=data, number_of_videos=number_of_videos)
+
+@app.route("/trendingfs")
+@nocache
+def trendingfs():
+    data = data_processing.get_data_trending()
+    number_of_videos = len(data[0]["Videos"])
+    print(len(data[0]["Videos"]))
+    return render_template("trending2.html", data=data, number_of_videos=number_of_videos)
     
 # #route quiz upload
 # @app.route("/quiz_upload", methods=["POST"])
