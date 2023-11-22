@@ -4,27 +4,35 @@ $(function() {
    * Data and config for chartjs
    */
   'use strict';
-  var data = {
-    labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
+  var data1 = {
+    labels: ["1", "2", "3", "4", "5", "6","7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44"],
     datasets: [{
       label: '# of Votes',
-      data: [10, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
+      data: [10, 19, 3, 5, 2, 3, 8, 12, 15, 7, 18, 6, 14, 9, 11, 4, 16, 13, 20, 17, 1, 19, 5, 10, 3, 14, 8, 12, 9, 16, 7, 11, 2, 18, 6, 13, 15, 4, 20, 1, 17, 42, 30, 22, 28],
+      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      borderColor: 'rgba(54, 162, 235, 0.2)',
+      borderWidth: 1,
+      fill: false
+    }]
+  };
+  var data2 = {
+    labels: ["1", "2", "3", "4", "5", "6","7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44"],
+    datasets: [{
+      label: '# of Votes',
+      data: [10, 19, 3, 5, 2, 3, 8, 12, 15, 7, 18, 6, 14, 9, 11, 4, 16, 13, 20, 17, 1, 19, 5, 10, 3, 14, 8, 12, 9, 16, 7, 11, 2, 18, 6, 13, 15, 4, 20, 1, 17, 42, 30, 22, 28],
+      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      borderColor: 'rgba(75, 192, 192, 0.2)',
+      borderWidth: 1,
+      fill: false
+    }]
+  };
+  var data3 = {
+    labels: ["1", "2", "3", "4", "5", "6","7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44"],
+    datasets: [{
+      label: '# of Votes',
+      data: [10, 19, 3, 5, 2, 3, 8, 12, 15, 7, 18, 6, 14, 9, 11, 4, 16, 13, 20, 17, 1, 19, 5, 10, 3, 14, 8, 12, 9, 16, 7, 11, 2, 18, 6, 13, 15, 4, 20, 1, 17, 42, 30, 22, 28],
+      backgroundColor: 'rgba(255, 159, 64, 0.2)',
+      borderColor: 'rgba(255, 159, 64, 0.2)',
       borderWidth: 1,
       fill: false
     }]
@@ -268,12 +276,32 @@ $(function() {
     }
   }
   // Get context with jQuery - using jQuery's .get() method.
-  if ($("#barChart").length) {
-    var barChartCanvas = $("#barChart").get(0).getContext("2d");
+  if ($("#barChart1").length) {
+    var barChartCanvas1 = $("#barChart1").get(0).getContext("2d");
     // This will get the first returned node in the jQuery collection.
-    var barChart = new Chart(barChartCanvas, {
+    var barChart1 = new Chart(barChartCanvas1, {
       type: 'bar',
-      data: data,
+      data : data1,
+      options: options
+    });
+  }
+
+  if ($("#barChart2").length) {
+    var barChartCanvas2 = $("#barChart2").get(0).getContext("2d");
+    // This will get the first returned node in the jQuery collection.
+    var barChart2 = new Chart(barChartCanvas2, {
+      type: 'bar',
+      data : data2,
+      options: options
+    });
+  }
+
+  if ($("#barChart3").length) {
+    var barChartCanvas3 = $("#barChart3").get(0).getContext("2d");
+    // This will get the first returned node in the jQuery collection.
+    var barChart3 = new Chart(barChartCanvas3, {
+      type: 'bar',
+      data : data3,
       options: options
     });
   }
