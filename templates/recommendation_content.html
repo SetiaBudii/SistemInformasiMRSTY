@@ -1,27 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <style>
-    .blue-text {
-      color: blue;
-    }
-  
-    .number-text {
-      font-weight: bold;
-    }
-  
-    .spacer {
-      flex-grow: 1;
-    }
 
-    .card-body span {
-      margin: 0; /* Menghilangkan margin pada paragraf */
-      display: -webkit-box;
-      -webkit-line-clamp: 2; /* Jumlah baris yang akan ditampilkan sebelum muncul ellipsis */
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-  </style>
-  
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -41,8 +20,9 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="../static/css/vertical-layout-light/style.css">
+  <link rel="stylesheet" href="../static/css/styles.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="../static/ve/favicon.png" />
+  <link rel="shortcut icon" href="../static/images/favicon.png" />
 </head>
 <body>
   <div class="container-scroller">
@@ -71,15 +51,21 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('trendingfs') }}">
+            <a class="nav-link" href="{{ url_for('performance') }}">
+              <i class="bi bi-speedometer menu-icon"></i>
+              <span class="menu-title">Performance</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('trending') }}">
               <i class="bi bi-graph-up menu-icon"></i>
               <span class="menu-title">Trending</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('recommendationchannel') }}">
+            <a class="nav-link" href="{{ url_for('recommendationcontent') }}">
               <i class="bi bi-hand-thumbs-up menu-icon"></i>
-              <span class="menu-title">Recommen channel</span>
+              <span class="menu-title">Recommen Category</span>
             </a>
           </li>
         </ul>
@@ -87,35 +73,45 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-                    <h2 class="font-weight-bold mb-5" style="color: #242565;">Trending</h2>
+          <h2 class="font-weight-bold mb-12" style="color: #242565;">Recommendation Content</h2>
           <div class="row">
-            {% for i in range(number_of_videos) %}
-            <div class="col-sm-6 col-xl-3" style="margin-bottom: 15px;">
-              <div class="card overflow-hidden rounded-2">
-                <div class="position-relative">
-                  <img src=" {{data[0]['Videos'][i]['thumbnail']}}" class="card-img-top rounded-0">
+            <div class="col-md-6">
+              <div class="row mt-5">
+                <div class="col-lg-12 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Views</h4>
+                      <canvas id="myChart"></canvas>
+                    </div>
+                  </div>
                 </div>
-                <div class="card-body pt-3 p-4">
-                  <div class="d-flex align-items-center">
-                    <h6 class="blue-text small mb-0">
-                      {{data[0]['Videos'][i]['Day']}} {{data[0]['Videos'][i]['Month']}}
-                    </h6>
-                    <h6 class="fw-semibold fs-4 ml-2 mb-0">
-                      <span class="text-sm">{{data[0]['Videos'][i]['Title'][:50]}}..</span>
-                    </h6>
-                  </div>
-                  <div class="d-flex align-items-center">
-                    <span class="number-text">#{{i+1}}</span>
-                  </div>
-                  <div class="d-flex flex-column mt-2">
-                    <p class="mb-0 small">{{data[0]['Videos'][i]['ChannelTitle']}}</p> 
-                    <p class="mb-0 small">{{data[0]['Videos'][i]['ViewCount']}} views</p> 
-                  </div>
-                </div>         
               </div>
-            </div>  
-            {% endfor %}
-          </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row mt-5">
+                <div class="col-lg-12 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Likes</h4>
+                      <canvas id="myChart2"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class ="col-md-6">
+              <div class="row mt-5">
+                <div class="col-lg-12 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Subscriber</h4>
+                      <canvas id="myChart3"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> 
+          </div> 
         </div>
       </div>
     </div>
@@ -129,7 +125,7 @@
   <!-- Plugin js for this page -->
   <script src="../static/vendors/chart.js/Chart.min.js"></script>
   <script src="../static/vendors/datatables.net/jquery.dataTables.js"></script>
-  <script src="v../endors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+  <script src="../endors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
   <script src="../static/js/dataTables.select.min.js"></script>
 
   <!-- End plugin js for this page -->
@@ -141,6 +137,7 @@
   <script src="../static/js/todolist.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
+  <script src="../static/js/chart.js"></script>
   <script src="../static/js/dashboard.js"></script>
   <script src="../static/js/Chart.roundedBarCharts.js"></script>
   <!-- End custom js for this page-->
