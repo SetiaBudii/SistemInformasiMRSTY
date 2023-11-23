@@ -62,7 +62,9 @@ def recommendationcontent():
 @app.route("/rec-channel")
 @nocache
 def recommendationchannel():
-    return render_template("recommendation_channel.html")
+    all_channel_channels = data_processing.get_uniqueChannelsName()
+    number_of_channels = len(all_channel_channels)
+    return render_template("recommendation_channel.html", all_channel_channels=all_channel_channels, number_of_channels=number_of_channels)
 
 @app.route("/trending")
 @nocache

@@ -121,4 +121,12 @@ def format_large_number(number):
     return formatted_number
 
 def get_uniqueChannelsName():
-    
+    client = MongoClient('localhost', 27017)
+    db = client['A2']
+    collection = db['StatisticChannels']
+
+    #find unique channel name
+    uniqueChannelsName = collection.distinct("ChannelsTitle")
+    client.close()
+
+    return uniqueChannelsName
