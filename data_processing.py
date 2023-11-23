@@ -119,3 +119,6 @@ def format_large_number(number):
 
     formatted_number = f"{int(rounded_number) if rounded_number.is_integer() else rounded_number}{suffixes[exp]}"
     return formatted_number
+
+def get_uniqueChannelsName():
+    
