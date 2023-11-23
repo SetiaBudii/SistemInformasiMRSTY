@@ -57,3 +57,65 @@ def extract_day(date_string):
 
     # Return the formatted month string
     return day_number
+
+
+def get_data_performance():
+    client = MongoClient('localhost', 27017)
+    db = client['A2']
+    collection = db['StatisticChannels']
+
+    query = {
+    "ChannelsTitle": "CSSGOSS",
+    }
+    
+    allstatistic = collection.find(query)
+    allstatistic = list(allstatistic)
+
+    allvideostatistic = []
+
+    for i in range(len(allstatistic)):
+        allvideostatistic.append(allstatistic[i]["Videos"])
+
+    # Flatten the list of video data
+    flat_video_data = [video for videos_list in allvideostatistic for video in videos_list]
+
+    # Find the video with the most viewCount
+    video_with_most_views = max(flat_video_data, key=lambda x: x['viewCount'])
+    video_with_most_likes = max(flat_video_data, key=lambda x: x['likeCount'])
+
+    # Sort the results by "Date" in descending order and limit to one document
+    sort_order = [("Date", -1)]  # -1 for descending order
+    lastdocumentstatistic = collection.find(query).sort(sort_order).limit(1)
+    lastdocumentstatistic = list(lastdocumentstatistic)
+    lastdocumentstatistic = lastdocumentstatistic[0]["ChannelStatistics"]
+
+    #first document
+    firstdocumentstatistic = collection.find(query).limit(1)
+    firstdocumentstatistic = list(firstdocumentstatistic)
+    firstdocumentstatistic = firstdocumentstatistic[0]["ChannelStatistics"]
+    
+    client.close()
+
+    # Calculate the difference between the last and first document
+    lastdocumentstatistic["viewCount"] = int(lastdocumentstatistic["viewCount"])
+    lastdocumentstatistic["subscriberCount"] = int(lastdocumentstatistic["subscriberCount"])
+    firstdocumentstatistic["viewCount"] = int(firstdocumentstatistic["viewCount"])
+    firstdocumentstatistic["subscriberCount"] = int(firstdocumentstatistic["subscriberCount"])
+
+    difviewcount = lastdocumentstatistic["viewCount"] - firstdocumentstatistic["viewCount"]
+    difsubscribercount = lastdocumentstatistic["subscriberCount"] - firstdocumentstatistic["subscriberCount"]
+
+    return lastdocumentstatistic, video_with_most_views, video_with_most_likes, difviewcount, difsubscribercount
+
+
+def format_large_number(number):
+    suffixes = ["", " Ribu", " Juta", " Milyar", " Triliun"]  # Add more suffixes as needed
+
+    if number < 1000:
+        return str(int(number))
+
+    exp = int((len(str(int(number))) - 1) / 3)
+    rounded_number = round(number / (1000.0 ** exp), 1)
+
+    formatted_number = f"{int(rounded_number) if rounded_number.is_integer() else rounded_number}{suffixes[exp]}"
+    return formatted_number
