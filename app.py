@@ -46,6 +46,7 @@ def recommendationcontent():
 @app.route("/rec-channel")
 @nocache
 def recommendationchannel():
+    data = data_processing.get_views_channels()
     return render_template("recommendation_channel.html")
 
 @app.route("/trending")
@@ -55,6 +56,14 @@ def trending():
     number_of_videos = len(data[0]["Videos"])
     print(len(data[0]["Videos"]))
     return render_template("trending.html", data=data, number_of_videos=number_of_videos)
+
+@app.route("/trendingfs")
+@nocache
+def trendingfs():
+    data = data_processing.get_data_trending()
+    number_of_videos = len(data[0]["Videos"])
+    print(len(data[0]["Videos"]))
+    return render_template("trending2.html", data=data, number_of_videos=number_of_videos)
     
 # #route quiz upload
 # @app.route("/quiz_upload", methods=["POST"])
