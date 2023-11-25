@@ -57,7 +57,7 @@ def performance():
 @app.route("/rec-content")
 @nocache
 def recommendationcontent():
-    return render_template("recommendation_category.html")
+    return render_template("recommendation_content.html")
 
 @app.route("/rec-channel")
 @nocache
