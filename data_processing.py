@@ -58,6 +58,38 @@ def extract_day(date_string):
     # Return the formatted month string
     return day_number
 
+# Count views,subcription, videoCount for Recommendation channel
+def get_views_channels():
+    # Assuming you have a MongoDB connection
+    client = MongoClient('localhost', 27017)
+    db = client['A2']
+    collection = db['StatisticChannels']
+
+    # Find all documents with ChannelsTitle equal to "Pricebook"
+    first_document = collection.find({"ChannelsTitle": "Pricebook"}).limit(1)
+    first_document = list(first_document)
+
+    last_document = collection.find({"ChannelsTitle": "Pricebook"}).sort([('_id', -1)]).limit(1)
+    last_document = list(last_document)
+
+    first_document2 = list(collection.find({"ChannelsTitle": "Channels1"}).limit(1))
+    last_document2 = list(collection.find({"ChannelsTitle": "Channels1"}).sort([('_id', -1)]).limit(1))
+
+    first_document += first_document2
+    last_document += last_document2
+
+    view_count_first_document = int(first_document[1]["ChannelStatistics"]["viewCount"])
+    view_count_last_document = int(last_document[1]["ChannelStatistics"]["viewCount"])
+
+    views = view_count_last_document - view_count_first_document
+    print(views)
+    # print(view_count_first_document)
+    # print(view_count_last_document)
+    
+    return last_document
+
+# def get_subscriber_channels():
+# def get_videoCount_channels(): 
 
 def get_data_performance():
     client = MongoClient('localhost', 27017)
