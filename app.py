@@ -36,18 +36,35 @@ def index():
 @app.route("/performance")
 @nocache
 def performance():
-    return render_template("performance.html")
+    stats = data_processing.get_data_performance()[0]
+    most_viewed = data_processing.get_data_performance()[1]
+    most_liked = data_processing.get_data_performance()[2]
+
+    #set title just 50 characters
+    most_liked["title"] = most_liked["title"][:50] + "..."
+
+    #Format likes and views to be more readable
+    most_liked["likeCount"] = data_processing.format_large_number(int(most_liked["likeCount"]))
+    most_viewed["viewCount"] = data_processing.format_large_number(int(most_viewed["viewCount"]))
+
+    #dif
+    difviewcount = data_processing.get_data_performance()[3]
+    difsubscribercount = data_processing.get_data_performance()[4]
+
+    # most_liked
+    return render_template("performance.html", stats=stats, most_viewed=most_viewed, most_liked=most_liked, difviewcount=difviewcount, difsubscribercount=difsubscribercount)
 
 @app.route("/rec-content")
 @nocache
 def recommendationcontent():
-    return render_template("recommendation_category.html")
+    return render_template("recommendation_content.html")
 
 @app.route("/rec-channel")
 @nocache
 def recommendationchannel():
-    data = data_processing.get_views_channels()
-    return render_template("recommendation_channel.html")
+    all_channel_channels = data_processing.get_uniqueChannelsName()
+    number_of_channels = len(all_channel_channels)
+    return render_template("recommendation_channel.html", all_channel_channels=all_channel_channels, number_of_channels=number_of_channels)
 
 @app.route("/trending")
 @nocache
@@ -63,7 +80,7 @@ def trendingfs():
     data = data_processing.get_data_trending()
     number_of_videos = len(data[0]["Videos"])
     print(len(data[0]["Videos"]))
-    return render_template("trending2.html", data=data, number_of_videos=number_of_videos)
+    return render_template("trending.html", data=data, number_of_videos=number_of_videos)
     
 # #route quiz upload
 # @app.route("/quiz_upload", methods=["POST"])

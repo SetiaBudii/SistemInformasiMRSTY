@@ -4,32 +4,70 @@ $(function() {
    * Data and config for chartjs
    */
   'use strict';
-  var data1 = {
-    labels: ["1", "2", "3", "4", "5", "6","7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44"],
-    datasets: [{
-      label: '# of Votes',
-      data: [10, 19, 3, 5, 2, 3, 8, 12, 15, 7, 18, 6, 14, 9, 11, 4, 16, 13, 20, 17, 1, 19, 5, 10, 3, 14, 8, 12, 9, 16, 7, 11, 2, 18, 6, 13, 15, 4, 20, 1, 17, 42, 30, 22, 28],
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      borderColor: 'rgba(54, 162, 235, 0.2)',
-      borderWidth: 1,
-      fill: false
+var data1 = {
+  labels: ["gaming", "movies", "pets&animals", "howto&style", "education", "comedy","Autos&Venichles", "music", "Sports", "Short Movies", "Travel&Events", "Videoblogging", "People&Blogs", "Entertainment", "News&Politics", "Science&Technology", "Anime/Animation", "Action/Adventure", "Classics", "Documentary", "Drama", "Family", "Foreign", "Horror", "Sci-Fi/Fantasy", "Thriller", "Shorts", "Shows", "Trailers", "Film&Animations"],
+  datasets: [{
+    data: [10, 19, 3, 5, 2, 3, 8, 12, 15, 7, 18, 6, 14, 9, 11, 4, 16, 13, 20, 17, 1, 19, 5, 10, 3, 14, 8, 12, 9, 16, 7, 11, 2, 18, 6, 13, 15, 4, 20, 1, 17, 42, 30, 22, 28],
+    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+    borderColor: 'rgba(54, 162, 235, 0.2)',
+    borderWidth: 1,
+    fill: false
+  }]
+};
+
+var options = {
+  scales: {
+    xAxes: [{
+      ticks: {
+        fontSize: 10,
+      }
     }]
-  };
-  var data2 = {
-    labels: ["1", "2", "3", "4", "5", "6","7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44"],
-    datasets: [{
-      label: '# of Votes',
-      data: [10, 19, 3, 5, 2, 3, 8, 12, 15, 7, 18, 6, 14, 9, 11, 4, 16, 13, 20, 17, 1, 19, 5, 10, 3, 14, 8, 12, 9, 16, 7, 11, 2, 18, 6, 13, 15, 4, 20, 1, 17, 42, 30, 22, 28],
-      backgroundColor: 'rgba(75, 192, 192, 0.2)',
-      borderColor: 'rgba(75, 192, 192, 0.2)',
-      borderWidth: 1,
-      fill: false
+  },
+  legend: {
+    display: false
+  }
+};
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: data1,
+  options: options
+});
+var data2 = {
+  labels: ["gaming", "movies", "pets&animals", "howto&style", "education", "comedy","Autos&Venichles", "music", "Sports", "Short Movies", "Travel&Events", "Videoblogging", "People&Blogs", "Entertainment", "News&Politics", "Science&Technology", "Anime/Animation", "Action/Adventure", "Classics", "Documentary", "Drama", "Family", "Foreign", "Horror", "Sci-Fi/Fantasy", "Thriller", "Shorts", "Shows", "Trailers", "Film&Animations"],
+  datasets: [{
+    data: [10, 19, 3, 5, 2, 3, 8, 12, 15, 7, 18, 6, 14, 9, 11, 4, 16, 13, 20, 17, 1, 19, 5, 10, 3, 14, 8, 12, 9, 16, 7, 11, 2, 18, 6, 13, 15, 4, 20, 1, 17, 42, 30, 22, 28],
+    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+    borderColor: 'rgba(75, 192, 192, 0.2)',
+    borderWidth: 1,
+    fill: false
+  }]
+};
+
+var options = {
+  scales: {
+    xAxes:[{      
+      ticks: {
+        fontSize: 10 
+      }
     }]
-  };
+  },
+  legend: {
+    display: false
+  }
+};
+
+var ctx = document.getElementById('myChart2').getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: data2,
+  options: options
+});
+
   var data3 = {
-    labels: ["1", "2", "3", "4", "5", "6","7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44"],
+    labels: ["gaming", "movies", "pets&animals", "howto&style", "education", "comedy","Autos&Venichles", "music", "Sports", "Short Movies", "Travel&Events", "Videoblogging", "People&Blogs", "Entertainment", "News&Politics", "Science&Technology", "Anime/Animation", "Action/Adventure", "Classics", "Documentary", "Drama", "Family", "Foreign", "Horror", "Sci-Fi/Fantasy", "Thriller", "Shorts", "Shows", "Trailers", "Film&Animations"],
     datasets: [{
-      label: '# of Votes',
       data: [10, 19, 3, 5, 2, 3, 8, 12, 15, 7, 18, 6, 14, 9, 11, 4, 16, 13, 20, 17, 1, 19, 5, 10, 3, 14, 8, 12, 9, 16, 7, 11, 2, 18, 6, 13, 15, 4, 20, 1, 17, 42, 30, 22, 28],
       backgroundColor: 'rgba(255, 159, 64, 0.2)',
       borderColor: 'rgba(255, 159, 64, 0.2)',
@@ -37,6 +75,25 @@ $(function() {
       fill: false
     }]
   };
+  var options = {
+    scales: {
+      xAxes:[{      
+        ticks: {
+          fontSize: 10 
+        }
+      }]
+    },
+    legend: {
+      display: false
+    }
+  };
+  
+  var ctx = document.getElementById('myChart3').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: data3,
+    options: options
+  });
   var multiLineData = {
     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
     datasets: [{
