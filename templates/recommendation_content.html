@@ -51,12 +51,6 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('performance') }}">
-              <i class="bi bi-speedometer menu-icon"></i>
-              <span class="menu-title">Performance</span>
-            </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="{{ url_for('trending') }}">
               <i class="bi bi-graph-up menu-icon"></i>
               <span class="menu-title">Trending</span>
@@ -65,7 +59,13 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('recommendationcontent') }}">
               <i class="bi bi-hand-thumbs-up menu-icon"></i>
-              <span class="menu-title">Recommen Category</span>
+              <span class="menu-title">Recommen Content</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('performance') }}">
+              <i class="bi bi-speedometer menu-icon"></i>
+              <span class="menu-title">Performance</span>
             </a>
           </li>
         </ul>
@@ -74,37 +74,44 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <h2 class="font-weight-bold mb-12" style="color: #242565;">Recommendation Content</h2>
-          <div class="row mt-5">
-            <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Bar chart</h4>
-                  <canvas id="barChart1"></canvas>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row mt-5">
+                <div class="col-lg-12 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Views</h4>
+                      <canvas id="myChart"></canvas>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row mt-5">
-            <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Bar chart</h4>
-                  <canvas id="barChart2"></canvas>
+            <div class="col-md-6">
+              <div class="row mt-5">
+                <div class="col-lg-12 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Likes</h4>
+                      <canvas id="myChart2"></canvas>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row mt-5">
-            <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Bar chart</h4>
-                  <canvas id="barChart3"></canvas>
+            <div class ="col-md-6">
+              <div class="row mt-5">
+                <div class="col-lg-12 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Subscriber</h4>
+                      <canvas id="myChart3"></canvas>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          
+            </div> 
+          </div> 
         </div>
       </div>
     </div>

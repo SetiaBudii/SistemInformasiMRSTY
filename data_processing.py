@@ -90,3 +90,112 @@ def get_views_channels():
 
 # def get_subscriber_channels():
 # def get_videoCount_channels(): 
+
+def get_data_performance():
+    client = MongoClient('localhost', 27017)
+    db = client['A2']
+    collection = db['StatisticChannels']
+
+    query = {
+    "ChannelsTitle": "CSSGOSS",
+    }
+    
+    performancedata = []
+    allstatistic = collection.find(query).sort([('_id', -1)]).limit(7)
+    allstatistic = list(allstatistic)
+    allstatistic = sorted(allstatistic, key=lambda x: x['_id'], reverse=False)
+
+    firstdocumentstatistic = allstatistic[0]["ChannelStatistics"]
+    print(firstdocumentstatistic)
+
+    # get all views Count per day
+    views_perday = []  
+    datelist = []
+
+    #append all viewCount per day
+    for i in range(len(allstatistic)):
+        views_perday.append(allstatistic[i]["ChannelStatistics"]["viewCount"])
+        datelist.append(allstatistic[i]["Date"])
+
+    #Structur
+    structurperweek = ({
+        "views_perday": views_perday,
+        "datelist": datelist
+    })
+    # get all video data
+    allvideostatistic = []
+
+    for i in range(len(allstatistic)-1):
+        allvideostatistic.append(allstatistic[i]["Videos"])
+
+    # Flatten the list of video data
+    flat_video_data = [video for videos_list in allvideostatistic for video in videos_list]
+
+    # # Find the video with the most viewCount
+    video_with_most_views = get_most_viewed_video(flat_video_data)
+    video_with_most_likes = get_most_liked_video(flat_video_data)
+    
+    # Sort the results by "Date" in descending order and limit to one document
+    lastdocumentstatistic = collection.find(query).sort([('_id', -1)]).limit(1)
+    lastdocumentstatistic = list(lastdocumentstatistic)
+    lastdocumentstatistic = lastdocumentstatistic[0]["ChannelStatistics"]
+        
+    client.close()
+
+    # Calculate the difference between the last and first document
+    lastdocumentstatistic["viewCount"] = int(lastdocumentstatistic["viewCount"])
+    lastdocumentstatistic["subscriberCount"] = int(lastdocumentstatistic["subscriberCount"])
+    firstdocumentstatistic["viewCount"] = int(firstdocumentstatistic["viewCount"])
+    firstdocumentstatistic["subscriberCount"] = int(firstdocumentstatistic["subscriberCount"])
+
+    difviewcount = lastdocumentstatistic["viewCount"] - firstdocumentstatistic["viewCount"]
+    difsubscribercount = lastdocumentstatistic["subscriberCount"] - firstdocumentstatistic["subscriberCount"]
+
+    performancedata.append({
+        "most_views": video_with_most_views,
+        "most_likes": video_with_most_likes,
+        "views_growth": difviewcount,
+        "subs_growth": difsubscribercount
+    })
+
+    return lastdocumentstatistic,performancedata,structurperweek
+
+
+def format_large_number(number):
+    suffixes = ["", " Ribu", " Juta", " Milyar", " Triliun"]  # Add more suffixes as needed
+
+    if number < 1000:
+        return str(int(number))
+
+    exp = int((len(str(int(number))) - 1) / 3)
+    rounded_number = round(number / (1000.0 ** exp), 1)
+
+    formatted_number = f"{int(rounded_number) if rounded_number.is_integer() else rounded_number}{suffixes[exp]}"
+    return formatted_number
+
+def get_uniqueChannelsName():
+    client = MongoClient('localhost', 27017)
+    db = client['A2']
+    collection = db['StatisticChannels']
+
+    #find unique channel name
+    uniqueChannelsName = collection.distinct("ChannelsTitle")
+    client.close()
+
+    return uniqueChannelsName
+
+def get_most_viewed_video(listdata):
+    return max(listdata, key=lambda x: x['viewCount'])
+
+def get_most_liked_video(listdata):
+    return max(listdata, key=lambda x: x['likeCount'])
+
+def statistic_views_perweek(data):
+    daily_differences = []
+    daily_differences.append(data[0])
+    for i in range(1, len(data)):
+        value_today = int(data[i])
+        value_yesterday = int(data[i - 1])
+        difference = value_today - value_yesterday
+        daily_differences.append(difference)
+    return daily_differences
