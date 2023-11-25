@@ -100,32 +100,46 @@ def get_data_performance():
     "ChannelsTitle": "CSSGOSS",
     }
     
-    allstatistic = collection.find(query)
+    performancedata = []
+    allstatistic = collection.find(query).sort([('_id', -1)]).limit(7)
     allstatistic = list(allstatistic)
+    allstatistic = sorted(allstatistic, key=lambda x: x['_id'], reverse=False)
 
+    firstdocumentstatistic = allstatistic[0]["ChannelStatistics"]
+    print(firstdocumentstatistic)
+
+    # get all views Count per day
+    views_perday = []  
+    datelist = []
+
+    #append all viewCount per day
+    for i in range(len(allstatistic)):
+        views_perday.append(allstatistic[i]["ChannelStatistics"]["viewCount"])
+        datelist.append(allstatistic[i]["Date"])
+
+    #Structur
+    structurperweek = ({
+        "views_perday": views_perday,
+        "datelist": datelist
+    })
+    # get all video data
     allvideostatistic = []
 
-    for i in range(len(allstatistic)):
+    for i in range(len(allstatistic)-1):
         allvideostatistic.append(allstatistic[i]["Videos"])
 
     # Flatten the list of video data
     flat_video_data = [video for videos_list in allvideostatistic for video in videos_list]
 
-    # Find the video with the most viewCount
-    video_with_most_views = max(flat_video_data, key=lambda x: x['viewCount'])
-    video_with_most_likes = max(flat_video_data, key=lambda x: x['likeCount'])
-
+    # # Find the video with the most viewCount
+    video_with_most_views = get_most_viewed_video(flat_video_data)
+    video_with_most_likes = get_most_liked_video(flat_video_data)
+    
     # Sort the results by "Date" in descending order and limit to one document
-    sort_order = [("Date", -1)]  # -1 for descending order
-    lastdocumentstatistic = collection.find(query).sort(sort_order).limit(1)
+    lastdocumentstatistic = collection.find(query).sort([('_id', -1)]).limit(1)
     lastdocumentstatistic = list(lastdocumentstatistic)
     lastdocumentstatistic = lastdocumentstatistic[0]["ChannelStatistics"]
-
-    #first document
-    firstdocumentstatistic = collection.find(query).limit(1)
-    firstdocumentstatistic = list(firstdocumentstatistic)
-    firstdocumentstatistic = firstdocumentstatistic[0]["ChannelStatistics"]
-    
+        
     client.close()
 
     # Calculate the difference between the last and first document
@@ -137,7 +151,14 @@ def get_data_performance():
     difviewcount = lastdocumentstatistic["viewCount"] - firstdocumentstatistic["viewCount"]
     difsubscribercount = lastdocumentstatistic["subscriberCount"] - firstdocumentstatistic["subscriberCount"]
 
-    return lastdocumentstatistic, video_with_most_views, video_with_most_likes, difviewcount, difsubscribercount
+    performancedata.append({
+        "most_views": video_with_most_views,
+        "most_likes": video_with_most_likes,
+        "views_growth": difviewcount,
+        "subs_growth": difsubscribercount
+    })
+
+    return lastdocumentstatistic,performancedata,structurperweek
 
 
 def format_large_number(number):
@@ -162,3 +183,19 @@ def get_uniqueChannelsName():
     client.close()
 
     return uniqueChannelsName
+
+def get_most_viewed_video(listdata):
+    return max(listdata, key=lambda x: x['viewCount'])
+
+def get_most_liked_video(listdata):
+    return max(listdata, key=lambda x: x['likeCount'])
+
+def statistic_views_perweek(data):
+    daily_differences = []
+    daily_differences.append(data[0])
+    for i in range(1, len(data)):
+        value_today = int(data[i])
+        value_yesterday = int(data[i - 1])
+        difference = value_today - value_yesterday
+        daily_differences.append(difference)
+    return daily_differences

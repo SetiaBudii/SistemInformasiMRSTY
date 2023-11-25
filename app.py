@@ -31,28 +31,45 @@ def nocache(view):
 @app.route("/")
 @nocache
 def index():
-    return render_template("index.html", file_path="img/image_here.jpg")
+    data = data_processing.get_data_trending()
+    number_of_videos = len(data[0]["Videos"])
+    print(len(data[0]["Videos"]))
+    return render_template("trending.html", data=data, number_of_videos=number_of_videos)
 
 @app.route("/performance")
 @nocache
 def performance():
-    stats = data_processing.get_data_performance()[0]
-    most_viewed = data_processing.get_data_performance()[1]
-    most_liked = data_processing.get_data_performance()[2]
+    last_statistic = data_processing.get_data_performance()[0]
+    growth = data_processing.get_data_performance()[2]
+    
+    listdate = growth['datelist']
+    statisticweek = data_processing.statistic_views_perweek(growth['views_perday'])
+    
+    print(statisticweek)
+    listexracted = [] 
+    month = data_processing.extract_and_convert_month(listdate[0])
+
+    for i in range(len(listdate)):
+        listdate[i] = data_processing.extract_day(listdate[i])
+        listexracted.append(str(listdate[i]) + " " + str(month))
+    print(listexracted)
+
+    most_viewed = data_processing.get_data_performance()[1][0]["most_views"]
+    most_liked = data_processing.get_data_performance()[1][0]["most_likes"]
 
     #set title just 50 characters
     most_liked["title"] = most_liked["title"][:50] + "..."
 
     #Format likes and views to be more readable
-    most_liked["likeCount"] = data_processing.format_large_number(int(most_liked["likeCount"]))
-    most_viewed["viewCount"] = data_processing.format_large_number(int(most_viewed["viewCount"]))
+    most_liked["likeCount"] = data_processing.format_large_number(most_liked["likeCount"])
+    most_viewed["viewCount"] = data_processing.format_large_number(most_viewed["viewCount"])
 
     #dif
-    difviewcount = data_processing.get_data_performance()[3]
-    difsubscribercount = data_processing.get_data_performance()[4]
+    difviewcount = data_processing.get_data_performance()[1][0]["views_growth"]
+    difsubscribercount = data_processing.get_data_performance()[1][0]["subs_growth"]
 
-    # most_liked
-    return render_template("performance.html", stats=stats, most_viewed=most_viewed, most_liked=most_liked, difviewcount=difviewcount, difsubscribercount=difsubscribercount)
+
+    return render_template("performance.html", most_viewed=most_viewed, most_liked=most_liked, difviewcount=difviewcount, difsubscribercount=difsubscribercount, last_statistic=last_statistic, statisticweek=statisticweek,listexracted=listexracted)
 
 @app.route("/rec-content")
 @nocache
