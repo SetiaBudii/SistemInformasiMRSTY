@@ -81,7 +81,11 @@ def recommendationcontent():
 def recommendationchannel():
     all_channel_channels = data_processing.get_uniqueChannelsName()
     number_of_channels = len(all_channel_channels)
-    return render_template("recommendation_channel.html", all_channel_channels=all_channel_channels, number_of_channels=number_of_channels)
+    data = data_processing.get_data_recommendation_channel()
+    rankedbyview = data_processing.sort_by_difviewcount(data)
+    rankedbysubscriber = data_processing.sort_by_difsubscount(data)
+    rankedbytotalvideo = data_processing.sort_by_diftotalvideo(data)
+    return render_template("recommendation_channel.html", all_channel_channels=all_channel_channels, number_of_channels=number_of_channels, rankedbyview=rankedbyview, rankedbysubscriber=rankedbysubscriber, rankedbytotalvideo=rankedbytotalvideo)
 
 @app.route("/trending")
 @nocache
