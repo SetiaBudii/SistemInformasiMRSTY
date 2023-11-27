@@ -114,9 +114,9 @@
                     <div class="card">
                       <h5 class="card-header">Most Viewed Video</h5>
                       <div class="card-body">
-                        <img class="rounded ml-4" src="https://i.ytimg.com/vi/L0H_5pwcMkg/sddefault.jpg" style="width: 400px; height: 220px; object-fit: cover;">
-                        <h5 class="card-title ml-3 mt-3">{{stats['']}}</h5>
-                        <p class="card-text mt-3 ml-3">{{stats['viewCount']}}</p>
+                        <img class="rounded ml-4" src="{{most_viewed['thumbnail']}}" style="width: 450px; height: 220px; object-fit: cover;">
+                        <h5 class="card-title ml-3 mt-3">{{most_viewed['title']}}</h5>
+                        <p class="card-text mt-3 ml-3">{{most_viewed['viewCount']}}</p>
                       </div>
                     </div>
                   </div>
@@ -124,9 +124,9 @@
                     <div class="card">
                       <h5 class="card-header">Most Liked Video</h5>
                       <div class="card-body">
-                        <img class="rounded ml-4" src="https://i.ytimg.com/vi/L0H_5pwcMkg/sddefault.jpg" style="width: 400px; height: 220px; object-fit: cover;">
-                        <h5 class="card-title mt-3 ml-3">{{stats['']}}</h5>
-                        <p class="card-text mt-3 ml-3">{{stats['likeCount']}}</p>
+                        <img class="rounded ml-4" src="{{most_liked['thumbnail']}}" style="width: 450px; height: 220px; object-fit: cover;">
+                        <h5 class="card-title mt-3 ml-3">{{most_liked['title']}}</h5>
+                        <p class="card-text mt-3 ml-3">{{most_liked['likeCount']}}</p>
                       </div>
                     </div>
                   </div>    
