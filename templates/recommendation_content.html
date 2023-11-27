@@ -81,7 +81,7 @@
                   <div class="card">
                     <div class="card-body">
                       <h4 class="card-title">System Prediction:</h4>
-                      <p>Video with category Gaming, Fashion , and Comedy will have more total views for next days!!</p>
+                      <p>Video with category {{recomendation[0]['category_title']}}, {{recomendation[1]['category_title']}} , and {{recomendation[2]['category_title']}} will have more total views for next days!!</p>
                     </div>
                   </div>
                 </div>
@@ -92,8 +92,8 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">Views</h4>
-                      <canvas id="myChart"></canvas>
+                      <h4 class="card-title">Top 10 Views</h4>
+                      <canvas id="myBarChart1"></canvas>
                     </div>
                   </div>
                 </div>
@@ -104,8 +104,8 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">Likes</h4>
-                      <canvas id="myChart2"></canvas>
+                      <h4 class="card-title">Top 10 Likes</h4>
+                      <canvas id="myBarChart2"></canvas>
                     </div>
                   </div>
                 </div>
@@ -116,8 +116,8 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">Total Video Trending</h4>
-                      <canvas id="myChart3"></canvas>
+                      <h4 class="card-title">Top 10 Total Video in Trending List</h4>
+                      <canvas id="myBarChart3"></canvas>
                     </div>
                   </div>
                 </div>
@@ -152,6 +152,150 @@
   <script src="../static/js/chart.js"></script>
   <script src="../static/js/dashboard.js"></script>
   <script src="../static/js/Chart.roundedBarCharts.js"></script>
+
+  <script>
+    // Your video data (video names and total likes)
+    var videoData = [
+      { video: 'Film', likes: 1000 },
+      { video: 'Music', likes: 1200 },
+      { video: 'Sport', likes: 800 },
+      { video: 'Gaming', likes: 1500 },
+      { video: 'Comedy', likes: 1900 },
+      { video: 'Entertainment', likes: 900 },
+      { video: 'Technology', likes: 1100 },
+      { video: 'Anime/Animation', likes: 1300 },
+      { video: 'Family', likes: 700 },
+      { video: 'Horror', likes: 1000 }
+    ];
+
+    // Get video names and likes for the chart
+    var videoNames = videoData.map(function (data) {
+      return data.video;
+    });
+
+    var videoLikes = videoData.map(function (data) {
+      return data.likes;
+    });
+
+    // Create a bar chart
+    var ctx = document.getElementById('myBarChart1').getContext('2d');
+    var myBarChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: videoNames,
+        datasets: [{
+          label: 'Total Views',
+          data: videoLikes,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+
+  <script>
+    // Your video data (video names and total likes)
+    var videoData = [
+      { video: 'Film', likes: 1000 },
+      { video: 'Music', likes: 1200 },
+      { video: 'Sport', likes: 800 },
+      { video: 'Gaming', likes: 1500 },
+      { video: 'Comedy', likes: 1900 },
+      { video: 'Entertainment', likes: 900 },
+      { video: 'Technology', likes: 1100 },
+      { video: 'Anime/Animation', likes: 1300 },
+      { video: 'Family', likes: 700 },
+      { video: 'Horror', likes: 1000 }
+    ];
+
+    // Get video names and likes for the chart
+    var videoNames = videoData.map(function (data) {
+      return data.video;
+    });
+
+    var videoLikes = videoData.map(function (data) {
+      return data.likes;
+    });
+
+    // Create a bar chart
+    var ctx = document.getElementById('myBarChart2').getContext('2d');
+    var myBarChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: videoNames,
+        datasets: [{
+          label: 'Total Likes',
+          data: videoLikes,
+          backgroundColor: 'skyblue',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+
+  <script>
+    // Your video data (video names and total likes)
+    var videoData = [
+      { video: "{{top10count_key[0]}}", likes: "{{top10count_value[0]}}" },
+      { video: '{{top10count_key[1]}}', likes: "{{top10count_value[1]}}" },
+      { video: '{{top10count_key[2]}}', likes: "{{top10count_value[2]}}" },
+      { video: '{{top10count_key[3]}}', likes: "{{top10count_value[3]}}" },
+      { video: '{{top10count_key[4]}}', likes: "{{top10count_value[4]}}" },
+      { video: '{{top10count_key[5]}}', likes: "{{top10count_value[5]}}" },
+      { video: '{{top10count_key[6]}}', likes: "{{top10count_value[6]}}"},
+      { video: '{{top10count_key[7]}}', likes: "{{top10count_value[7]}}" },
+      { video: '{{top10count_key[8]}}', likes: "{{top10count_value[8]}}" },
+      { video: '{{top10count_key[9]}}', likes: "{{top10count_value[9]}}" }
+    ];
+
+    // Get video names and likes for the chart
+    var videoNames = videoData.map(function (data) {
+      return data.video;
+    });
+
+    var videoLikes = videoData.map(function (data) {
+      return data.likes;
+    });
+
+    // Create a bar chart
+    var ctx = document.getElementById('myBarChart3').getContext('2d');
+    var myBarChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: videoNames,
+        datasets: [{
+          label: 'Total Video',
+          data: videoLikes,
+          backgroundColor: 'orange',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
   <!-- End custom js for this page-->
 </body>
 

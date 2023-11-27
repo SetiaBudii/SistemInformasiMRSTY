@@ -74,7 +74,12 @@ def performance():
 @app.route("/rec-content")
 @nocache
 def recommendationcontent():
-    return render_template("recommendation_content.html")
+    top10count_key= data_processing.get_top10count_category()[0]
+    top10count_value= data_processing.get_top10count_category()[1]
+    top10view_key = data_processing.get_top10views_category()[0]
+    top10view_value = data_processing.get_top10views_category()[1]
+    recomendation = [{"category_id": 10, "category_title": "Music", "predicted_views": 600867622}, {"category_id": 24, "category_title": "Entertainment", "predicted_views": 200969984}, {"category_id": 1, "category_title": "Film & Animation", "predicted_views": 93462335}]
+    return render_template("recommendation_content.html", top10count_key=top10count_key, top10count_value=top10count_value, top10view_key=top10view_key, top10view_value=top10view_value, recomendation=recomendation)
 
 @app.route("/rec-channel")
 @nocache

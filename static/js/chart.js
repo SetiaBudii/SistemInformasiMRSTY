@@ -35,9 +35,9 @@ var myChart = new Chart(ctx, {
   options: options
 });
 var data2 = {
-  labels: ["howto&style", "education", "comedy","Autos&Venichles", "music", "Sports", "Short Movies", "Travel&Events", "Videoblogging", "People&Blogs"],
+  labels: ["howto&style"],
   datasets: [{
-    data: [10, 19, 3, 5, 2, 3, 8, 12, 15, 7, 18, 6, 14, 9, 11, 4, 16, 13, 20, 17, 1, 19, 5, 10, 3, 14, 8, 12, 9, 16, 7, 11, 2, 18, 6, 13, 15, 4, 20, 1, 17, 42, 30, 22, 28],
+    data: [10],
     backgroundColor: 'rgba(75, 192, 192, 0.2)',
     borderColor: 'rgba(75, 192, 192, 0.2)',
     borderWidth: 1,

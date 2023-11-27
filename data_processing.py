@@ -189,7 +189,7 @@ def get_most_liked_video(listdata):
 
 def statistic_views_perweek(data):
     daily_differences = []
-    daily_differences.append(data[0])
+    daily_differences.append(0)
     for i in range(1, len(data)):
         value_today = int(data[i])
         value_yesterday = int(data[i - 1])
@@ -313,3 +313,78 @@ def sort_by_diftotalvideo(data):
     }
 
     return sorted_dict
+
+def get_top10count_category():
+    client = MongoClient('localhost', 27017)
+    db = client['A2']
+    collection = db['Trending']
+
+      #last documeent
+    last = collection.find().sort([('_id', -1)]).limit(1)
+    last = list(last)
+
+    video_count_per_category = {}
+
+    # for video in last["Videos"]:
+    #     category_id = video["CategoryID"]
+    #     if category_id in video_count_per_category:
+    #         video_count_per_category[category_id] += 1
+    #     else:
+    #         video_count_per_category[category_id] = 1
+
+    
+    for video in last[0]["Videos"]:
+        category_id = video["CategoryTitle"]
+        if category_id in video_count_per_category:
+            video_count_per_category[category_id] += 1
+        else:
+            video_count_per_category[category_id] = 1
+
+    #top 10
+    video_count_per_category = dict(sorted(video_count_per_category.items(), key=lambda item: item[1], reverse=True)[:10])
+
+    client.close()
+    # split key and value
+
+    key_list = []
+    value_list = []
+    for key, value in video_count_per_category.items():
+        key_list.append(key)
+        value_list.append(value)
+
+    return key_list,value_list
+
+
+def get_top10views_category():
+    client = MongoClient('localhost', 27017)
+    db = client['A2']
+    collection = db['Trending']
+
+      #last documeent
+    last = collection.find().sort([('_id', -1)]).limit(1)
+    last = list(last)
+
+    like_count_category = {}
+    
+    for video in last[0]["Videos"]:
+        category_id = video["CategoryTitle"]
+        if category_id in like_count_category:
+            like_count_category[category_id] += int(video["ViewCount"])
+        else:
+            like_count_category[category_id] = int(video["ViewCount"])
+
+    #top 10
+    like_count_category = dict(sorted(like_count_category.items(), key=lambda item: item[1], reverse=True)[:10])
+
+    client.close()
+    # split key and value
+
+    key_list = []
+    value_list = []
+    for key, value in like_count_category.items():
+        key_list.append(key)
+        value_list.append(value)
+
+    return key_list,value_list
+
+
