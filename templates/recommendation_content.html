@@ -51,12 +51,6 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('performance') }}">
-              <i class="bi bi-speedometer menu-icon"></i>
-              <span class="menu-title">Performance</span>
-            </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="{{ url_for('trending') }}">
               <i class="bi bi-graph-up menu-icon"></i>
               <span class="menu-title">Trending</span>
@@ -65,7 +59,13 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('recommendationcontent') }}">
               <i class="bi bi-hand-thumbs-up menu-icon"></i>
-              <span class="menu-title">Recommen Category</span>
+              <span class="menu-title">Recommen Content</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('performance') }}">
+              <i class="bi bi-speedometer menu-icon"></i>
+              <span class="menu-title">Performance</span>
             </a>
           </li>
         </ul>

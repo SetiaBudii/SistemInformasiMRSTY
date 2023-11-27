@@ -58,6 +58,35 @@ def extract_day(date_string):
     # Return the formatted month string
     return day_number
 
+# Count views,subcription, videoCount for Recommendation channel
+def get_views_channels():
+    # Assuming you have a MongoDB connection
+    client = MongoClient('localhost', 27017)
+    db = client['A2']
+    collection = db['StatisticChannels']
+
+    # Find all documents with ChannelsTitle equal to "Pricebook"
+    first_document = collection.find({"ChannelsTitle": "Pricebook"}).limit(1)
+    first_document = list(first_document)
+
+    last_document = collection.find({"ChannelsTitle": "Pricebook"}).sort([('_id', -1)]).limit(1)
+    last_document = list(last_document)
+
+    first_document2 = list(collection.find({"ChannelsTitle": "Channels1"}).limit(1))
+    last_document2 = list(collection.find({"ChannelsTitle": "Channels1"}).sort([('_id', -1)]).limit(1))
+
+    first_document += first_document2
+    last_document += last_document2
+
+    view_count_first_document = int(first_document[1]["ChannelStatistics"]["viewCount"])
+    view_count_last_document = int(last_document[1]["ChannelStatistics"]["viewCount"])
+
+    views = view_count_last_document - view_count_first_document
+    print(views)
+    # print(view_count_first_document)
+    # print(view_count_last_document)
+    
+    return last_document
 
 def get_data_performance():
     client = MongoClient('localhost', 27017)
@@ -65,35 +94,49 @@ def get_data_performance():
     collection = db['StatisticChannels']
 
     query = {
-    "ChannelsTitle": "CSSGOSS",
+    "ChannelsTitle": "GadgetIn",
     }
     
-    allstatistic = collection.find(query)
+    performancedata = []
+    allstatistic = collection.find(query).sort([('_id', -1)]).limit(7)
     allstatistic = list(allstatistic)
+    allstatistic = sorted(allstatistic, key=lambda x: x['_id'], reverse=False)
 
+    firstdocumentstatistic = allstatistic[0]["ChannelStatistics"]
+    print(firstdocumentstatistic)
+
+    # get all views Count per day
+    views_perday = []  
+    datelist = []
+
+    #append all viewCount per day
+    for i in range(len(allstatistic)):
+        views_perday.append(allstatistic[i]["ChannelStatistics"]["viewCount"])
+        datelist.append(allstatistic[i]["Date"])
+
+    #Structur
+    structurperweek = ({
+        "views_perday": views_perday,
+        "datelist": datelist
+    })
+    # get all video data
     allvideostatistic = []
 
-    for i in range(len(allstatistic)):
+    for i in range(len(allstatistic)-1):
         allvideostatistic.append(allstatistic[i]["Videos"])
 
     # Flatten the list of video data
     flat_video_data = [video for videos_list in allvideostatistic for video in videos_list]
 
-    # Find the video with the most viewCount
-    video_with_most_views = max(flat_video_data, key=lambda x: x['viewCount'])
-    video_with_most_likes = max(flat_video_data, key=lambda x: x['likeCount'])
-
+    # # Find the video with the most viewCount
+    video_with_most_views = get_most_viewed_video(flat_video_data)
+    video_with_most_likes = get_most_liked_video(flat_video_data)
+    
     # Sort the results by "Date" in descending order and limit to one document
-    sort_order = [("Date", -1)]  # -1 for descending order
-    lastdocumentstatistic = collection.find(query).sort(sort_order).limit(1)
+    lastdocumentstatistic = collection.find(query).sort([('_id', -1)]).limit(1)
     lastdocumentstatistic = list(lastdocumentstatistic)
     lastdocumentstatistic = lastdocumentstatistic[0]["ChannelStatistics"]
-
-    #first document
-    firstdocumentstatistic = collection.find(query).limit(1)
-    firstdocumentstatistic = list(firstdocumentstatistic)
-    firstdocumentstatistic = firstdocumentstatistic[0]["ChannelStatistics"]
-    
+        
     client.close()
 
     # Calculate the difference between the last and first document
@@ -105,7 +148,14 @@ def get_data_performance():
     difviewcount = lastdocumentstatistic["viewCount"] - firstdocumentstatistic["viewCount"]
     difsubscribercount = lastdocumentstatistic["subscriberCount"] - firstdocumentstatistic["subscriberCount"]
 
-    return lastdocumentstatistic, video_with_most_views, video_with_most_likes, difviewcount, difsubscribercount
+    performancedata.append({
+        "most_views": video_with_most_views,
+        "most_likes": video_with_most_likes,
+        "views_growth": difviewcount,
+        "subs_growth": difsubscribercount
+    })
+
+    return lastdocumentstatistic,performancedata,structurperweek
 
 
 def format_large_number(number):
@@ -130,3 +180,136 @@ def get_uniqueChannelsName():
     client.close()
 
     return uniqueChannelsName
+
+def get_most_viewed_video(listdata):
+    return max(listdata, key=lambda x: x['viewCount'])
+
+def get_most_liked_video(listdata):
+    return max(listdata, key=lambda x: x['likeCount'])
+
+def statistic_views_perweek(data):
+    daily_differences = []
+    daily_differences.append(data[0])
+    for i in range(1, len(data)):
+        value_today = int(data[i])
+        value_yesterday = int(data[i - 1])
+        difference = value_today - value_yesterday
+        daily_differences.append(difference)
+    return daily_differences
+
+def get_data_recommendation_channel():
+    client = MongoClient('localhost', 27017)
+    db = client['A2']
+    collection = db['StatisticChannels']
+
+    query = {
+    "ChannelsTitle": "CSSGOSS",
+    }
+
+    allstatchannel = []
+    allfirststatchannel = []
+    alllaststatchannel = []
+    difsubscribercount = []
+    difviewcount = []
+    diftotalvideo = []
+    allchannel = ['CSSGOSS','GadgetIn','Pricebook','Sobat HAPE','Jagat Review','DK ID']
+    
+    for i in range(len(allchannel)):
+        query = {
+        "ChannelsTitle": allchannel[i],
+        }
+        allstatistic = collection.find(query).sort([('_id', -1)]).limit(7)
+        allstatistic = list(allstatistic)
+        allstatistic = sorted(allstatistic, key=lambda x: x['_id'], reverse=False)
+        allfirststatchannel.append(allstatistic[0]["ChannelStatistics"])
+        if len(allstatistic) == 7:
+            alllaststatchannel.append(allstatistic[6]["ChannelStatistics"])
+        else:
+            alllaststatchannel.append("no data")
+        
+    for i in range(len(allchannel)):
+        if alllaststatchannel[i] != "no data":
+            alllaststatchannel[i]["viewCount"] = int(alllaststatchannel[i]["viewCount"])
+            alllaststatchannel[i]["subscriberCount"] = int(alllaststatchannel[i]["subscriberCount"])
+            alllaststatchannel[i]["videoCount"] = int(alllaststatchannel[i]["videoCount"])
+
+            allfirststatchannel[i]["viewCount"] = int(allfirststatchannel[i]["viewCount"])
+            allfirststatchannel[i]["subscriberCount"] = int(allfirststatchannel[i]["subscriberCount"])
+            allfirststatchannel[i]["videoCount"] = int(allfirststatchannel[i]["videoCount"])
+
+            difviewcount.append(alllaststatchannel[i]["viewCount"] - allfirststatchannel[i]["viewCount"])
+            difsubscribercount.append(alllaststatchannel[i]["subscriberCount"] - allfirststatchannel[i]["subscriberCount"])
+            diftotalvideo.append(alllaststatchannel[i]["videoCount"] - allfirststatchannel[i]["videoCount"])
+        else:
+            difviewcount.append("no data")
+            difsubscribercount.append("no data")
+            diftotalvideo.append("no data")
+
+    structurdif = ({
+        "channel": allchannel,
+        "difviewcount": difviewcount,
+        "difsubscribercount": difsubscribercount,
+        "diftotalvideo": diftotalvideo
+    })
+
+    return structurdif
+
+def sort_by_difviewcount(data):
+    # Zip the lists into a list of tuples
+    zipped_data = zip(data['channel'], data['difviewcount'], data['difsubscribercount'], data['diftotalvideo'])
+
+    # Sort the list of tuples based on the difviewcount (index 1)
+    sorted_data = sorted(zipped_data, key=lambda x: x[1] if isinstance(x[1], (int, float)) else float('-inf'), reverse=True)
+
+    # Unzip the sorted data
+    sorted_channel, sorted_difviewcount, sorted_difsubscribercount, sorted_diftotalvideo = zip(*sorted_data)
+
+    # Create a new dictionary with the sorted data
+    sorted_dict = {
+        'channel': list(sorted_channel),
+        'difviewcount': list(sorted_difviewcount),
+        'difsubscribercount': list(sorted_difsubscribercount),
+        'diftotalvideo': list(sorted_diftotalvideo),
+    }
+
+    return sorted_dict
+
+def sort_by_difsubscount(data):
+    # Zip the lists into a list of tuples
+    zipped_data = zip(data['channel'], data['difviewcount'], data['difsubscribercount'], data['diftotalvideo'])
+
+    # Sort the list of tuples based on the difviewcount (index 1)
+    sorted_data = sorted(zipped_data, key=lambda x: x[2] if isinstance(x[2], (int, float)) else float('-inf'), reverse=True)
+
+    # Unzip the sorted data
+    sorted_channel, sorted_difviewcount, sorted_difsubscribercount, sorted_diftotalvideo = zip(*sorted_data)
+
+    # Create a new dictionary with the sorted data
+    sorted_dict = {
+        'channel': list(sorted_channel),
+        'difviewcount': list(sorted_difviewcount),
+        'difsubscribercount': list(sorted_difsubscribercount),
+        'diftotalvideo': list(sorted_diftotalvideo),
+    }
+
+    return sorted_dict
+
+def sort_by_diftotalvideo(data):
+    # Zip the lists into a list of tuples
+    zipped_data = zip(data['channel'], data['difviewcount'], data['difsubscribercount'], data['diftotalvideo'])
+
+    # Sort the list of tuples based on the difviewcount (index 1)
+    sorted_data = sorted(zipped_data, key=lambda x: x[3] if isinstance(x[3], (int, float)) else float('-inf'), reverse=True)
+
+    # Unzip the sorted data
+    sorted_channel, sorted_difviewcount, sorted_difsubscribercount, sorted_diftotalvideo = zip(*sorted_data)
+
+    # Create a new dictionary with the sorted data
+    sorted_dict = {
+        'channel': list(sorted_channel),
+        'difviewcount': list(sorted_difviewcount),
+        'difsubscribercount': list(sorted_difsubscribercount),
+        'diftotalvideo': list(sorted_diftotalvideo),
+    }
+
+    return sorted_dict
