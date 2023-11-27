@@ -5,7 +5,7 @@ $(function() {
    */
   'use strict';
 var data1 = {
-  labels: ["gaming", "movies", "pets&animals", "howto&style", "education", "comedy","Autos&Venichles", "music", "Sports", "Short Movies", "Travel&Events", "Videoblogging", "People&Blogs", "Entertainment", "News&Politics", "Science&Technology", "Anime/Animation", "Action/Adventure", "Classics", "Documentary", "Drama", "Family", "Foreign", "Horror", "Sci-Fi/Fantasy", "Thriller", "Shorts", "Shows", "Trailers", "Film&Animations"],
+  labels: ["howto&style", "education", "comedy","Autos&Venichles", "music", "Sports", "Short Movies", "Travel&Events", "Videoblogging", "People&Blogs"],
   datasets: [{
     data: [10, 19, 3, 5, 2, 3, 8, 12, 15, 7, 18, 6, 14, 9, 11, 4, 16, 13, 20, 17, 1, 19, 5, 10, 3, 14, 8, 12, 9, 16, 7, 11, 2, 18, 6, 13, 15, 4, 20, 1, 17, 42, 30, 22, 28],
     backgroundColor: 'rgba(54, 162, 235, 0.2)',
@@ -35,7 +35,7 @@ var myChart = new Chart(ctx, {
   options: options
 });
 var data2 = {
-  labels: ["gaming", "movies", "pets&animals", "howto&style", "education", "comedy","Autos&Venichles", "music", "Sports", "Short Movies", "Travel&Events", "Videoblogging", "People&Blogs", "Entertainment", "News&Politics", "Science&Technology", "Anime/Animation", "Action/Adventure", "Classics", "Documentary", "Drama", "Family", "Foreign", "Horror", "Sci-Fi/Fantasy", "Thriller", "Shorts", "Shows", "Trailers", "Film&Animations"],
+  labels: ["howto&style", "education", "comedy","Autos&Venichles", "music", "Sports", "Short Movies", "Travel&Events", "Videoblogging", "People&Blogs"],
   datasets: [{
     data: [10, 19, 3, 5, 2, 3, 8, 12, 15, 7, 18, 6, 14, 9, 11, 4, 16, 13, 20, 17, 1, 19, 5, 10, 3, 14, 8, 12, 9, 16, 7, 11, 2, 18, 6, 13, 15, 4, 20, 1, 17, 42, 30, 22, 28],
     backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -66,9 +66,9 @@ var myChart = new Chart(ctx, {
 });
 
   var data3 = {
-    labels: ["gaming", "movies", "pets&animals", "howto&style", "education", "comedy","Autos&Venichles", "music", "Sports", "Short Movies", "Travel&Events", "Videoblogging", "People&Blogs", "Entertainment", "News&Politics", "Science&Technology", "Anime/Animation", "Action/Adventure", "Classics", "Documentary", "Drama", "Family", "Foreign", "Horror", "Sci-Fi/Fantasy", "Thriller", "Shorts", "Shows", "Trailers", "Film&Animations"],
+    labels: ["howto&style", "education", "comedy","Autos&Venichles", "music", "Sports", "Short Movies", "Travel&Events", "Videoblogging", "People&Blogs"],
     datasets: [{
-      data: [10, 19, 3, 5, 2, 3, 8, 12, 15, 7, 18, 6, 14, 9, 11, 4, 16, 13, 20, 17, 1, 19, 5, 10, 3, 14, 8, 12, 9, 16, 7, 11, 2, 18, 6, 13, 15, 4, 20, 1, 17, 42, 30, 22, 28],
+      data: [89, 19, 20,79, 20, 30, 68, 90, 80, 19],
       backgroundColor: 'rgba(255, 159, 64, 0.2)',
       borderColor: 'rgba(255, 159, 64, 0.2)',
       borderWidth: 1,
