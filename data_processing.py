@@ -94,7 +94,7 @@ def get_data_performance():
     collection = db['StatisticChannels']
 
     query = {
-    "ChannelsTitle": "CSSGOSS",
+    "ChannelsTitle": "GadgetIn",
     }
     
     performancedata = []
@@ -212,7 +212,7 @@ def get_data_recommendation_channel():
     difsubscribercount = []
     difviewcount = []
     diftotalvideo = []
-    allchannel = ['CSSGOSS','GadgetIn']
+    allchannel = ['CSSGOSS','GadgetIn','Pricebook','Sobat HAPE','Jagat Review','DK ID']
     
     for i in range(len(allchannel)):
         query = {
